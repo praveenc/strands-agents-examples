@@ -1,0 +1,11 @@
+[project]
+name = "cap-markets"
+version = "0.1.0"
+description = "Strands agents demo for capital markets."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "rich>=14.0.0",
+    "strands-agents[ollama]>=1.0.1",
+    "strands-agents-tools>=0.2.1",
+]

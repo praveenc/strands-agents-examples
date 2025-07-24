@@ -24,11 +24,11 @@ Edit `agent_bedrock.py` to configure:
 
 ```python
 bedrock_model = BedrockModel(
-    model_id="us.anthropic.claude-sonnet-4-20250514-v1:0",  # Change model if needed
+    model_id="us.anthropic.claude-3-7-sonnet-20250219-v1:0",  # Change model if needed
     region_name="us-west-2",  # Change to your AWS region
     temperature=0.1,  # Change to desired temperature
     top_p=0.5,  # Change to desired top_p
-    max_tokens=2048,  # Change to desired max_tokens
+    # max_tokens=2048,  # Change to desired max_tokens
 )
 ```
 

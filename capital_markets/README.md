@@ -32,7 +32,7 @@ uv run market_data/agent_bedrock.py
 uv run market_data/agent_ollama.py
 ```
 
-See [market_data/README.md](market_data/README.md) for detailed setup instructions.
+See [market_data/README.md](market_data/README.md) for instructions on how to customize this agent.
 
 
 ### Trading Analysis System
@@ -48,7 +48,7 @@ uv run trading_analysis/agent.py TSLA
 uv run trading_analysis/agent.py TSLA --type risk
 ```
 
-See [trading_analysis/README.md](trading_analysis/README.md) for detailed instructions.
+See [trading_analysis/README.md](trading_analysis/README.md) for instructions on how to customize this agent.
 
 #### Available Analysis Types
 

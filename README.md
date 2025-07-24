@@ -32,7 +32,7 @@ uv sync
 
 ## Next
 
-See usage instructions in [capital_markets](capital_markets/#usage) folder.
+See usage instructions in [capital_markets](capital_markets/README.md#usage).
 
 ## Note
 

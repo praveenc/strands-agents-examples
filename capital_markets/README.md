@@ -6,11 +6,13 @@ A example framework for financial analysis and trading decision support using St
 
 This project demonstrates how to build sophisticated AI agents for capital markets applications using [Strands python SDK](https://github.com/strands-agents/sdk-python). It includes:
 
-1. **Market Data Agents**: Multiple deployment options for retrieving market data:
+1. **Market Data Agents (Single Agent)**: Multiple deployment options for retrieving market data:
    - Amazon Bedrock (Claude models)
    - Local deployment (Ollama)
 
-2. **Trading Analysis System**: A comprehensive multi-agent system with specialized agents for:
+   ![Real-time market data Agent](market_data/images/agent_bedrock_cli_output.png)
+
+2. **Trading Analysis System (Multi-Agent)**: A comprehensive multi-agent system with specialized agents for:
    - Fundamental analysis
    - Technical analysis
    - Sentiment analysis
@@ -19,14 +21,13 @@ This project demonstrates how to build sophisticated AI agents for capital marke
 
 ## Usage
 
-### Market Data Agent
+### Market Data Agent (Single Agent)
 
 The sample Market Data Agent provides access to financial data for any ticker symbol through different model backends.
 
-
 ```shell
-# Run with AWS Bedrock (requires AWS credentials)
-uv run market_data/agent_bedrock.py
+# Single Agent with access to real-time market data. Use Amazon Bedrock as the model provider (requires AWS credentials)
+uv run market_data/agent_bedrock_api.py AAPL
 
 # Run with local Ollama (requires Ollama running locally)
 uv run market_data/agent_ollama.py
@@ -34,11 +35,16 @@ uv run market_data/agent_ollama.py
 
 See [market_data/README.md](market_data/README.md) for instructions on how to customize this agent.
 
-
-### Trading Analysis System
+### Trading Analysis System (Multi-Agent)
 
 The sample Trading Analysis System provides comprehensive financial analysis through a multi-agent architecture.
 
+The orchestrator agent can run the following analysis types for a given ticker symbol:
+
+- **fundamental**
+- **technical**
+- **sentiment**
+- **risk**
 
 ```shell
 # run comprehensive analysis for a given ticker symbol - uses AWS Bedrock (requires AWS credentials)
@@ -50,28 +56,12 @@ uv run trading_analysis/agent.py TSLA --type risk
 
 See [trading_analysis/README.md](trading_analysis/README.md) for instructions on how to customize this agent.
 
-#### Available Analysis Types
+## Trading Analysis Agent Architecture
 
-Refer to [agent.py](trading_analysis/agent.py) for full implementation details.
+![multi-agent architecture](trading_analysis/images/trading_analysis_agent.png)
 
-- `fundamental`: Valuation, growth prospects, and investment recommendations
-- `technical`: Chart patterns, indicators, and entry/exit points
-- `sentiment`: Market sentiment based on news and social media
-- `risk`: Risk profile including market risk, volatility, and portfolio impact
-- `comprehensive`: Complete analysis covering all aspects (default)
 
-## Agent Architecture
-
-### Market Data Agent
-
-A flexible agent with model-specific implementations:
-
-- `agent_bedrock.py`: Uses AWS Bedrock with Claude models
-- `agent_ollama.py`: Uses locally hosted models via Ollama
-
-### Trading Analysis System
-
-A hierarchical multi-agent system with:
+A hierarchical multi-agent system consists of the following specialist agents:
 
 1. **Specialist Agents**:
    - Fundamental Analysis Agent
@@ -83,6 +73,14 @@ A hierarchical multi-agent system with:
    - Trading Advisor that synthesizes insights from specialist agents
 
 Each specialist agent has access to specific tools relevant to their domain of expertise.
+
+Refer to [agent.py](trading_analysis/agent.py) for full implementation details.
+
+- `fundamental`: Valuation, growth prospects, and investment recommendations
+- `technical`: Chart patterns, indicators, and entry/exit points
+- `sentiment`: Market sentiment based on news and social media
+- `risk`: Risk profile including market risk, volatility, and portfolio impact
+- `comprehensive`: Complete analysis covering all aspects (default)
 
 ## Data Flow
 

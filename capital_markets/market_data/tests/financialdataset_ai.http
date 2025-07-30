@@ -1,0 +1,13 @@
+@contentType = application/json
+@userAgent = strands/0.1
+@financialdatasets = api.financialdatasets.ai
+@ticker = AAPL
+
+
+### NOTE: Without an API key, only the following are available: Tickers: AAPL, BRK.B, GOOGL, MSFT, NVDA, TSLA"}
+
+
+### GET Request
+GET https://{{financialdatasets}}/prices/snapshot?ticker={{ticker}}
+Content-Type: {{contentType}}
+User-Agent: {{userAgent}}

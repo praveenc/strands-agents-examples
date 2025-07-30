@@ -1,12 +1,61 @@
-# Market Data Agents
+# Building Agents with Strands SDK: Market Data Agent
 
-This folder contains implementations of market data retrieval agents using different model backends.
+A simple market data agent framework for retrieving market data for any ticker symbol.
+Agents are implemented using Strands SDK with Amazon Bedrock and Ollama as model providers.
 
->Note: This is a demonstration project using **mock data generators**. In a production environment, these would be replaced with real data sources and APIs.
+![Agent Bedrock API output](images/agent_bedrock_cli_output.png)
+
+
+>Note: This project includes both mock data generators and a real API implementation (`agent_bedrock_api.py`).
+>The mock implementations (`agent_bedrock.py` and `agent_ollama.py`) demonstrate the basic structure, while the API implementation shows a production-ready approach.
+
+## Prerequisites
+
+- Python 3.12+
+- [uv](https://astral.sh/uv) package manager
+- Strands SDK
+
+```bash
+# install uv
+pip install uv
+
+# create a virtual environment
+uv venv
+
+# activate the virtual environment
+source .venv/bin/activate
+
+# install dependencies
+uv sync
+```
 
 ## Available Agents
 
-### AWS Bedrock Agent (`agent_bedrock.py`)
+This project includes three agent implementations with different model providers and data sources.
+
+### Realtime API Agent (`agent_bedrock_api.py`)
+
+This implementation demonstrates a complete agent that fetches actual real-time market data using the free API from [financialdatasets.ai](https://api.financialdatasets.ai).
+
+>**NOTE:** Without an API key, only the following tickers are available: AAPL, BRK.B, GOOGL, MSFT, NVDA, TSLA
+
+#### Features
+
+- Real API integration with error handling
+- Rich console formatting with tables and panels
+- Command-line arguments for ticker specification
+- Detailed metrics display (tokens used, execution time, tools used)
+
+#### Running the Agent
+
+```bash
+# From repository root with active venv
+uv run market_data/agent_bedrock_api.py AAPL  # Specify ticker (default is GOOGL if not provided)
+```
+
+This agent fetches actual price, volume, day change, and percentage change data for the specified ticker and displays the analysis in a formatted panel.
+
+### Mock Data Agent (`agent_bedrock.py`)
 
 This agent uses Claude models via AWS Bedrock to answer financial questions and retrieve market data.
 
@@ -44,18 +93,18 @@ For custom AWS session:
 uv run market_data/agent_bedrock.py
 ```
 
-### Ollama Agent (`agent_ollama.py`)
+### Local Ollama Agent (`agent_ollama.py`)
 
-This agent uses locally hosted models via [Ollama](https://ollama.ai/) for market data retrieval.
+This agent uses locally hosted models via [Ollama](https://ollama.com/) for market data retrieval.
 
-#### Prerequisites for Ollama
+#### Prerequisites for using Ollama Agent
 
 1. [Ollama](https://ollama.ai/) installed and running on your machine
-2. The specified model pulled (`qwen3:8b-q8_0`) or any reasoning model from Ollama
+2. The specified model pulled (`qwen3:8b-q8_0`) or any reasoning model from [Ollama](https://ollama.com))
 
-#### Configuration for Ollama
+#### Ollama agent configuration
 
-Edit `agent_ollama.py` to configure:
+Edit [`agent_ollama.py`](./agent_ollama.py) to configure:
 
 ```python
 ollama_model = OllamaModel(
@@ -67,27 +116,11 @@ ollama_model = OllamaModel(
 )
 ```
 
-#### Running the Agent with Ollama models
+#### Running Ollam Agent
 
 ```bash
 # From repository root with active venv
-python market_data/agent_ollama.py
-```
-
-## Customizing the Market Data Tool
-
-Both agents use a simplified mock implementation of the `market_data` tool. In a production environment, modify this function to connect to real financial data APIs:
-
-```python
-@tool
-def market_data(ticker: str) -> dict:
-    """Retrieve current market data for a given ticker symbol."""
-    # Replace this with a real API call
-    # Example:
-    # response = requests.get(f"https://api.financialdata.com/v1/stocks/{ticker}")
-    # return response.json()
-
-    return {"ticker": ticker, "price": 123.45, "volume": 1000000}
+uv run market_data/agent_ollama.py
 ```
 
 ## Example Queries

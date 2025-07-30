@@ -8,4 +8,6 @@ dependencies = [
     "rich>=14.0.0",
     "strands-agents[ollama]>=1.0.1",
     "strands-agents-tools>=0.2.1",
+    "asyncio>=3.4.3",
+    "loguru>=0.7.3",
 ]

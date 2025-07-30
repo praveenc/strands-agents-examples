@@ -1,4 +1,4 @@
-# AI-Powered Financial Analysis Agents for Capital Markets
+# AI-Powered Financial Analysis Agents
 
 A example framework for financial analysis and trading decision support using Strands Agents.
 
@@ -23,11 +23,13 @@ This project demonstrates how to build sophisticated AI agents for capital marke
 
 ### Market Data Agent (Single Agent)
 
-The sample Market Data Agent provides access to financial data for any ticker symbol through different model backends.
+The sample Market Data Agent provides access to financial data by calling the Free API [financialdatasets.ai](https://api.financialdatasets.ai/) to get data for a few ticker symbols.
+
+>**NOTE:** Without an API key, only the following tickers are available: AAPL, BRK.B, GOOGL, MSFT, NVDA, TSLA
 
 ```shell
 # Single Agent with access to real-time market data. Use Amazon Bedrock as the model provider (requires AWS credentials)
-uv run market_data/agent_bedrock_api.py AAPL
+uv run market_data/agent_bedrock_api.py NVDA
 
 # Run with local Ollama (requires Ollama running locally)
 uv run market_data/agent_ollama.py
